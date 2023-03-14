@@ -1,0 +1,57 @@
+main {
+  max-width: 40rem;
+}
+
+main #restaurant-list {
+  list-style: none;
+  margin: 2rem 0;
+  padding: 0;
+  background-color: royalblue;
+}
+
+main #restaurant-list .restaurant-item {
+  margin: 1rem 0;
+  padding: 1rem;
+  border-radius: 4px;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, .2);
+  background-color: rgb(250, 233, 194);
+  color: rgb(110, 78, 7);
+  text-align: left;
+}
+
+main #restaurant-list .restaurant-item h2 {
+  font-size: 1.25rem;
+  margin: .25rem 0
+}
+
+main #restaurant-list .restaurant-item p {
+  margin: .2rem 0;
+  color: rgb(110, 78, 7);
+}
+
+main #restaurant-list .restaurant-item .restaurant-meta {
+  margin-bottom: .5rem;
+}
+
+main #restaurant-list .restaurant-item .restaurant-meta p {
+  color: rgb(170, 148, 95);
+}
+
+main #restaurant-list .restaurant-item .restaurant-actions {
+  margin-top: 1rem;
+  text-align: right;
+}
+
+main #restaurant-list .restaurant-item .restaurant-actions a {
+  padding: .5rem 1.5rem;
+  background-color: rgb(202, 158, 62);
+  border-radius: 4px;
+  color: white;
+  text-decoration: none;
+}
+
+main #restaurant-list .restaurant-item .restaurant-actions a:hover,
+main #restaurant-list .restaurant-item .restaurant-actions a:active {
+
+
+}
