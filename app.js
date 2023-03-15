@@ -5,6 +5,12 @@ const express = require("express");
 
 const app = express();
 
+// set();
+// 서버에 대한 몇가지 옵션을 설정한다
+// 템플릿 기능 사용 가능
+app.set("views", path.join(__dirname, "views"));
+app.set("view engine", "ejs");
+
 // 모든 요청을 처리하는 use 메소드
 // static("폴더이름");
 // 모든 요청에 대해서 static 파일(css, js)에 대한 요청인지 확인한다
@@ -13,29 +19,31 @@ app.use(express.static("public"));
 app.use(express.urlencoded({extended: false}));
 
 app.get("/", (req, res) => {
-  const htmlFilePath = path.join(__dirname, "views", "index.html");
-
-  // sendFile("파일경로")
-  // 응답으로 파일 전송
-  res.sendFile(htmlFilePath); // index.html
+  // render("템플릿파일이름");
+  // 템플릿 엔진의 도움을 받아 템플릿 파일을 분석해서 html 파일로 바꾸고
+  // 요청에 대한 응답으로 html 파일 전송
+  res.render("index"); // index.ejs
 });
 
 app.get("/index", (req, res) => {
-  const htmlFilePath = path.join(__dirname, "views", "index.html");
-
-  res.sendFile(htmlFilePath); // index.html
+  res.render("index") // index.ejs
 });
 
 app.get("/restaurants", (req, res) => {
-  const htmlFilePath = path.join(__dirname, "views", "restaurants.html");
+  const filePath = path.join(__dirname, "data", "restaurants.json");
 
-  res.sendFile(htmlFilePath); // restaurants.html
+  const fileData = fs.readFileSync(filePath);
+  const storedRestaurants = JSON.parse(fileData);
+
+  // render("템플릿파일이름", 객체);
+  res.render("restaurants", { // restaurants.ejs
+    numberOfRestaurants: storedRestaurants.length,
+    restaurants: storedRestaurants,
+  });
 });
 
 app.get("/recommend", (req, res) => {
-  const htmlFilePath = path.join(__dirname, "views", "recommend.html");
-
-  res.sendFile(htmlFilePath); // recommend.html
+  res.render("recommend") // recommend.ejs
 });
 
 app.post("/recommend", (req, res) => {
@@ -57,16 +65,12 @@ app.post("/recommend", (req, res) => {
 });
 
 app.get("/confirm", (req, res) => {
-  const htmlFilePath = path.join(__dirname, "views", "confirm.html");
-
-  res.sendFile(htmlFilePath); // confirm.html
+  res.render("confirm") // confirm.ejs
 });
 
 app.get("/about", (req, res) => {
-  const htmlFilePath = path.join(__dirname, "views", "about.html");
+  res.render("about") // about.ejs
 
-  res.sendFile(htmlFilePath); // about.html
 });
-
 
 app.listen(3000);

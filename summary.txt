@@ -6,4 +6,25 @@ CSS, JavaScript 파일에 대한 응답은 허락하지 않았다
 
 CSS, JavaScript, 이미지 등 '모든 파일'에 대한 '추가 요청'과 그에 대한 '추가 응답'이 필요하다
 
+'템플릿'을 사용해서 '동적 사이트'를 생성하고 전송
+'템플릿'은 'placeholder'와 약간의 '특별한 문법'을 가진 html 파일
+
+템플릿 엔진에 따라서 문법이 달라진다
+EJS 엔진 패키지
+$npm install ejs
+
+index.html => index.ejs로 파일명을 변경해야 한다
+템플릿 파일 = 동적 html 파일
+'템플릿 엔진'은 '템플릿 파일'을 분석(parse)해서 '동적 html 파일'을 생성해준다
+
+ejs 템플릿 문법 : 이 새끼 주석 안통한다 씨발!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!
+1. <%= placeholder %>
+순수한 텍스트(=raw text, not html code)
+2. <% 자바스크립트 반복문/조건문 코드 %>
+반복문을 통해서 내부의 HTML 코드를 반복한다
+3. <%- include("EJS파일경로"[, 객체]) %>
+HTML 코드(=HTML code, not raw text)
+include 파일: '페이지의 공통적인 부분'을 포함하고 있는 또 다른 EJS 파일
+
+
 
