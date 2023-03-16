@@ -2,12 +2,14 @@ const fs = require("fs");
 const path = require("path");
 
 const express = require("express");
+const uuid = require("uuid"); // uuid 패키지
 
 const app = express();
 
 // set();
-// 서버에 대한 몇가지 옵션을 설정한다
-// 템플릿 기능 사용 가능
+// 옵션을 설정한다
+// 1. 뷰 엔진(템플릿 엔진)으로 EJS 설정
+// 2. 뷰 파일(템플릿 파일)이 존재하는 views 폴더 경로 설정
 app.set("views", path.join(__dirname, "views"));
 app.set("view engine", "ejs");
 
@@ -42,12 +44,40 @@ app.get("/restaurants", (req, res) => {
   });
 });
 
+// 동적 라우팅(dynamic routing)
+// :placeholder(=:id)
+app.get("/restaurants/:id", (req, res)=>{ // "/restaurant/r1"
+  // params
+  // 동적 라우팅으로 설정한 모든 placeholder(=key)에 대한 정보를 갖는 객체
+  const restaurantId = req.params.id;
+
+  const filePath = path.join(__dirname, "data", "restaurants.json");
+
+  const fileData = fs.readFileSync(filePath);
+  const storedRestaurants = JSON.parse(fileData);
+
+  for (let restaurant of storedRestaurants) {
+    if (restaurant.id === restaurantId) {
+      res.render("restaurant-detail", { restaurant: restaurant }); // restaurant-detail.ejs
+      return;
+    }
+  }
+
+  // 서버의 정상적인 응답 실패를 알려준다
+  res.render("404"); // 404.ejs
+})
+
+
 app.get("/recommend", (req, res) => {
   res.render("recommend") // recommend.ejs
 });
 
 app.post("/recommend", (req, res) => {
   const newRestaurant = req.body;
+
+  // 객체에 새로운 프로퍼티(id) 생성
+  // uuid 패키지를 사용해서 '고유한 id값' 부여
+  newRestaurant.id = uuid.v4();
 
   const filePath = path.join(__dirname, "data", "restaurants.json");
 
@@ -70,7 +100,19 @@ app.get("/confirm", (req, res) => {
 
 app.get("/about", (req, res) => {
   res.render("about") // about.ejs
-
 });
+
+// client side error
+// 유효하지 않은 모든 나머지 요청 처리
+app.use(function(req, res) {
+  // 서버의 정상적인 응답 실패를 알려준다
+  res.render("404"); // 404.ejs
+})
+
+// server side error
+// 서버 측 에러가 발생했을 때 동작
+app.use(function(error, req, res, next) {
+  res.render("500"); // 500.ejs
+})
 
 app.listen(3000);

@@ -6,7 +6,6 @@ main #restaurant-list {
   list-style: none;
   margin: 2rem 0;
   padding: 0;
-  background-color: royalblue;
 }
 
 main #restaurant-list .restaurant-item {

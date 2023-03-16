@@ -27,4 +27,14 @@ HTML 코드(=HTML code, not raw text)
 include 파일: '페이지의 공통적인 부분'을 포함하고 있는 또 다른 EJS 파일
 
 
+동적 라우팅(dynamic routing)
+
+써드 파티 패키지 uuid(uniform unique id)
+$npm install uuid
+
+404: 클라이언트에 의한 실패 상태 코드(잘못된 url 입력 등)
+500: 서버에 의한 실패 상태 코드(서버 코드 에러, 데이터 전송 에러 등)
+200: 성공 상태 코드
+
+미들웨어 함수: 다양한 요청 또는 모든 요청이 들어왔을 때 첫번째로 동작하는 함수
 
